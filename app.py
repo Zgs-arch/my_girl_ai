@@ -172,8 +172,8 @@ button[id*="new_chat_btn"]:hover {
 [data-testid="stChatInputContainer"],
 [data-testid="stChatInputContainer"] > div,
 [data-testid="stChatInputContainer"] > div > div {
-    width: 600px !important;
-    max-width: 600px !important;
+    width: 480px !important;
+    max-width: 480px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     background: transparent !important;
@@ -562,16 +562,6 @@ st.markdown(
 
 # ==================== 侧边栏 ====================
 with st.sidebar:
-    # ====== API Key ======
-    user_api_key = st.text_input(
-        "🔑 DeepSeek API Key",
-        type="password",
-        placeholder="粘贴你的 API Key…",
-        help="不填则使用默认 Key。去 deepseek.com 免费注册即可获取。",
-    )
-    if user_api_key:
-        st.caption("✅ 已使用你的 Key")
-
     # ====== 智能体列表 ======
     st.subheader("🌸 我的 AI 伙伴们")
 
@@ -736,6 +726,16 @@ with st.sidebar:
                     st.rerun()
     else:
         st.caption("💭 还没有聊天记录哦~")
+
+    st.divider()
+    # ====== API Key（放最下面）======
+    user_api_key = st.text_input(
+        "🔑 API Key",
+        type="password",
+        placeholder="粘贴 DeepSeek API Key…",
+    )
+    if user_api_key:
+        st.caption("✅ 已使用你的 Key")
 
 # ==================== 主区域 ====================
 
