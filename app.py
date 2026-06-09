@@ -745,14 +745,18 @@ with st.sidebar:
 
     st.divider()
     # ====== API Key ======
+    if "saved_api_key" not in st.session_state:
+        st.session_state.saved_api_key = ""
     user_api_key = st.text_input(
         "🔑 API Key",
         type="password",
         placeholder="粘贴 DeepSeek API Key…",
-        value="sk-1d81b207b4b647a085e2d556f17b8586",
+        value=st.session_state.saved_api_key,
     )
+    if user_api_key and user_api_key != st.session_state.saved_api_key:
+        st.session_state.saved_api_key = user_api_key
     if user_api_key:
-        st.caption("✅ 已使用你的 Key")
+        st.caption("✅ 已绑定你的 Key")
 
 # ==================== 主区域 ====================
 
