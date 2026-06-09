@@ -429,7 +429,7 @@ def save_current_session():
 def _generate_title(messages):
     """用 API 生成简短会话标题"""
     try:
-        api_key = user_api_key or os.environ.get("DEEPSEEK_API_KEY")
+        api_key = st.session_state.get("api_key") or os.environ.get("DEEPSEEK_API_KEY")
         if not api_key:
             return None
         client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
@@ -542,6 +542,9 @@ if "session_title" not in st.session_state:
 
 if "show_new_agent_form" not in st.session_state:
     st.session_state.show_new_agent_form = False
+
+if "api_key" not in st.session_state:
+    st.session_state.api_key = ""
 
 
 def get_current_agent():
@@ -744,10 +747,11 @@ with st.sidebar:
         st.caption("💭 还没有聊天记录哦~")
 
     st.divider()
-    user_api_key = st.text_input(
+    st.text_input(
         "🔑 API Key",
         type="password",
         placeholder="粘贴 DeepSeek API Key…",
+        key="api_key",
     )
 
 # ==================== 主区域 ====================
@@ -788,7 +792,7 @@ else:
 # ==================== 输入框 + API 调用 ====================
 prompt = st.chat_input("输入消息…")
 
-api_key = user_api_key or os.environ.get("DEEPSEEK_API_KEY")
+api_key = st.session_state.get("api_key") or os.environ.get("DEEPSEEK_API_KEY")
 if not api_key:
     pass  # API Key 由用户在侧边栏填写
 elif prompt:
