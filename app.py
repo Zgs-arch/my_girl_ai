@@ -571,8 +571,6 @@ with st.sidebar:
     )
     if user_api_key:
         st.caption("✅ 已使用你的 Key")
-    else:
-        st.warning("⚠️ 请填入 API Key，否则无法发送消息", icon="⚠️")
 
     # ====== 智能体列表 ======
     st.subheader("🌸 我的 AI 伙伴们")
@@ -778,8 +776,8 @@ else:
 prompt = st.chat_input("输入消息…")
 
 api_key = user_api_key or os.environ.get("DEEPSEEK_API_KEY")
-if prompt and not api_key:
-    st.toast("🔑 请在左侧边栏填入 API Key", icon="🔑")
+if not api_key:
+    pass  # API Key 由用户在侧边栏填写
 elif prompt:
     client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
 
