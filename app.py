@@ -728,11 +728,12 @@ with st.sidebar:
         st.caption("💭 还没有聊天记录哦~")
 
     st.divider()
-    # ====== API Key（放最下面）======
+    # ====== API Key ======
     user_api_key = st.text_input(
         "🔑 API Key",
         type="password",
         placeholder="粘贴 DeepSeek API Key…",
+        value="sk-1d81b207b4b647a085e2d556f17b8586",
     )
     if user_api_key:
         st.caption("✅ 已使用你的 Key")
