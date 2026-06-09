@@ -518,7 +518,13 @@ if "agents" not in st.session_state:
         },
     ]
     for preset in presets:
-        if not any(a["id"] == preset["id"] for a in st.session_state.agents):
+        existing = next((a for a in st.session_state.agents if a["id"] == preset["id"]), None)
+        if existing:
+            # 已存在则同步更新名字/提示词/头像
+            existing["name"] = preset["name"]
+            existing["prompt"] = preset["prompt"]
+            existing["avatar"] = preset["avatar"]
+        else:
             st.session_state.agents.append(preset)
     save_agents(st.session_state.agents)
 
