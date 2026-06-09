@@ -166,14 +166,14 @@ button[id*="new_chat_btn"]:hover {
     box-shadow: none !important;
     background: transparent !important;
 }
-/* 输入框居中，与上方会话同宽 */
+/* 输入框居中，缩短长度 */
 [data-testid="stBottom"],
 [data-testid="stBottomBlockContainer"],
 [data-testid="stChatInputContainer"],
 [data-testid="stChatInputContainer"] > div,
 [data-testid="stChatInputContainer"] > div > div {
-    width: 860px !important;
-    max-width: 860px !important;
+    width: 600px !important;
+    max-width: 600px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     background: transparent !important;
@@ -571,6 +571,8 @@ with st.sidebar:
     )
     if user_api_key:
         st.caption("✅ 已使用你的 Key")
+    else:
+        st.warning("⚠️ 请填入 API Key，否则无法发送消息", icon="⚠️")
 
     # ====== 智能体列表 ======
     st.subheader("🌸 我的 AI 伙伴们")
@@ -776,8 +778,8 @@ else:
 prompt = st.chat_input("输入消息…")
 
 api_key = user_api_key or os.environ.get("DEEPSEEK_API_KEY")
-if not api_key:
-    st.error("🔑 请在左侧边栏填入你的 DeepSeek API Key（deepseek.com 免费注册即可获取）")
+if prompt and not api_key:
+    st.toast("🔑 请在左侧边栏填入 API Key", icon="🔑")
 elif prompt:
     client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
 
